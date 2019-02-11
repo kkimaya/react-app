@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 class App extends Component {
-  state = {
-    persons: [
-      { id:'unique001',name: 'Max', age: 28 },
-      { id:'unique002',name: 'Manu', age: 29 },
-      { id:'unique003',name: 'Stephanie', age: 26 }
-    ],
-    otherState: 'some other value',
-    showPersons: false
-  };
 
+    constructor(props){
+        super(props);
+        console.log('[App.js] constructor');
+
+
+    }
+
+//a more modern syntax than initializing the state in the constructor
+    state = {
+                 persons: [
+                   { id:'unique001',name: 'Max', age: 28 },
+                   { id:'unique002',name: 'Manu', age: 29 },
+                   { id:'unique003',name: 'Stephanie', age: 26 }
+                 ],
+                 otherState: 'some other value',
+                 showPersons: false
+             };
+
+    static getDerivedStateFromProps(props,state){
+        console.log('[App.js] getDerivedStateFromProps' , props);
+        return state;
+    }
+
+    componentWillMount(){ //will be deprecated
+        console.log('[App.js] componentWillMount');
+    }
+    componentDidMount(){
+        console.log('[App.js] componentDidMount')
+    }
     deletePersonHandler= (personIndex) => {
       const persons = this.state.persons.slice(); //make a copy of the array before splicing.
       //alternatively you could also use the spread operator.
@@ -49,6 +68,8 @@ class App extends Component {
      this.setState({showPersons: !doesShow});
   }
   render() {
+
+    console.log('[App.js] render')
 
     let persons=null;
     if(this.state.showPersons){
