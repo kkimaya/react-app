@@ -27,12 +27,26 @@ class App extends Component {
         return state;
     }
 
-   /* componentWillMount(){ //will be deprecated
+    /* componentWillMount(){ //will be deprecated
         console.log('[App.js] componentWillMount');
     }*/
     componentDidMount(){
         console.log('[App.js] componentDidMount')
     }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log('[App.js] shouldComponentUpdate')
+        return true;
+    }
+    getSnapshotBeforeUpdate(prevProps, prevState){
+        console.log('[App.js] getSnapshotBeforeUpdate');
+        return {message: 'Snapshot'};
+    }
+
+    componentDidUpdate(){
+        console.log('[App.js] componentDidUpdate');
+    }
+
     deletePersonHandler= (personIndex) => {
       const persons = this.state.persons.slice(); //make a copy of the array before splicing.
       //alternatively you could also use the spread operator.
