@@ -25,6 +25,7 @@ class Persons extends PureComponent {
     //     }
     // }
 
+    //PureComponent already implements shouldcomponentupdate and checks if ANY props changed, 
     getSnapshotBeforeUpdate(prevProps, prevState){
         console.log('[Persons.js] getSnapshotBeforeUpdate');
         return {message: 'Snapshot'};
