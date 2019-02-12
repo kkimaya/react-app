@@ -22,7 +22,8 @@ class App extends Component {
                  ],
                  otherState: 'some other value',
                  showPersons: false,
-                 showCockpit: true
+                 showCockpit: true,
+                 changeCounter: 0
              };
 
     static getDerivedStateFromProps(props,state){
@@ -75,9 +76,16 @@ class App extends Component {
 
         const updatedPersons =[...this.state.persons];
         updatedPersons[personIndex]=person;
-        this.setState({
-              persons: updatedPersons
-            });
+        this.setState((prevState, props) =>{
+
+            return{
+              persons: updatedPersons,
+              changeCounter: prevState.changeCounter+1
+              //changeCounter: this.state.changeCounter+1 //depending on the old state (this.state.changCounter) to update the state is a bad way of programming
+                                                        // even though this setState call may seem synchronous, it mostly is not. React schedules state updates.//#endregion
+                                                        //For this reason, if you have a setState somewhere else which has updated the state, this call here,  might not get all the changes
+                                                        //until it executes and might have stale/old data                
+            }});
    };
 
   togglePersonsHandler = () =>{
